@@ -22,7 +22,7 @@ Run the compiled executable with the desired mathematical expression and optimiz
 
 bash
 
-./gradient_descent "y^2-x*3+x*y" 0
+./main "y^2-x*3+x*y" 0
 
     The first argument is the mathematical expression.
     The second argument is the algorithm chosen to adjust the learning rate:
@@ -30,44 +30,6 @@ bash
         1 for Exponential Decay
         2 for Inverse Decay
 
-Example
-
-cpp
-
-#include "gd.h"
-
-int main(int argc, char** argv) {
-    // Define the objective function
-    std::string expression_string = argv[1];
-    std::vector<double> variables = { 1.0, 2.0 }; // Example variables
-    Function<double> objective(expression_string, variables);
-
-    // Choose the optimization algorithm based on the command-line argument
-    if (std::stoi(argv[2]) == 0) {
-        GradientDescent<double, CentralDifferences<double>, ArmijoLearningRate<double>> optimizer;
-        Eigen::VectorXd initialGuess(2);
-        initialGuess << 0.5, 0.5; // Initial guess
-
-        Eigen::VectorXd result = optimizer.minimize(objective, initialGuess);
-        std::cout << "Optimal solution: " << result.transpose() << std::endl;
-    } else if (std::stoi(argv[2]) == 1) {
-        GradientDescent<double, CentralDifferences<double>, ExponentialDecay<double>> optimizer;
-        Eigen::VectorXd initialGuess(2);
-        initialGuess << 0.5, 0.5; // Initial guess
-
-        Eigen::VectorXd result = optimizer.minimize(objective, initialGuess);
-        std::cout << "Optimal solution: " << result.transpose() << std::endl;
-    } else {
-        GradientDescent<double, CentralDifferences<double>, InverseDecay<double>> optimizer;
-        Eigen::VectorXd initialGuess(2);
-        initialGuess << 0.5, 0.5; // Initial guess
-
-        Eigen::VectorXd result = optimizer.minimize(objective, initialGuess);
-        std::cout << "Optimal solution: " << result.transpose() << std::endl;
-    }
-
-    return 0;
-}
 
 Contributing
 
