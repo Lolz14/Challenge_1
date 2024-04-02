@@ -64,19 +64,20 @@ class ArmijoLearningRate {
 public:
     Scalar operator()(const Function<Scalar>& objective, const Eigen::VectorXd& x, const Eigen::VectorXd& gradient, Scalar fval, size_t iter) const {
        // Armijo rule parameters
-        const Scalar beta = 0.8; 
+        const Scalar beta = 0.5; 
         const Scalar sigma = 0.4; 
-        Scalar alpha = 1.0;
+        Scalar alpha = 0.01;
+        unsigned int count = 0;
 
         while (true) {
             Eigen::VectorXd perturbed_x = x - alpha * gradient;
             Scalar perturbed_fval = objective(perturbed_x, const_cast<Eigen::VectorXd&>(gradient));
-            if (perturbed_fval <= fval - sigma  * gradient.squaredNorm()) {
+            if (perturbed_fval <= fval - sigma  * alpha*gradient.squaredNorm() || count > 1000) {
                 break;
             }
             alpha *= beta;
+            ++count;
         }
-
         return alpha;
     }
 };
@@ -86,9 +87,8 @@ class ExponentialDecay {
 public:
     Scalar operator()(const Function<Scalar>& objective, const Eigen::VectorXd& x, const Eigen::VectorXd& gradient, Scalar fval, size_t iter) const {
        // Exp decay params
-        const Scalar mu = 0.8;  
-        Scalar alpha = 1.0;
-
+        const Scalar mu = 0.2;  
+        Scalar alpha = 0.01;
 
         return alpha*exp(-mu*iter);
     }
@@ -99,9 +99,8 @@ class InverseDecay {
 public:
     Scalar operator()(const Function<Scalar>& objective, const Eigen::VectorXd& x, const Eigen::VectorXd& gradient, Scalar fval, size_t iter) const {
        // Exp decay params
-        const Scalar mu = 0.8;  
-        Scalar alpha = 1.0;
-
+        const Scalar mu = 0.2;  
+        Scalar alpha = 0.01;
 
         return alpha/(1+mu*iter);
     }
@@ -139,7 +138,7 @@ public:
             Scalar fval;
             Vector grad;
             gradientMethod_(objective, x, fval, grad);
-            Scalar stepSize = learningRateMethod_(objective, x, grad, fval, iter);
+            Scalar stepSize = learningRateMethod_(objective, x, grad, fval, iter+1);
             
 
 

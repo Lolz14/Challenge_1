@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
     if (std::stoi(argv[2])==0){
       GradientDescent<double,CentralDifferences<double>,ArmijoLearningRate<double>> optimizer;
       Eigen::VectorXd initialGuess(2);
-      initialGuess << 0.5, 0.5; // Initial guess
+      initialGuess << 0, 0; // Initial guess
 
       Eigen::VectorXd result = optimizer.minimize(objective, initialGuess);
           std::cout << "Optimal solution: " << result.transpose() << std::endl;
@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     else if (std::stoi(argv[2])==1){
          GradientDescent<double,CentralDifferences<double>,ExponentialDecay<double>> optimizer;
       Eigen::VectorXd initialGuess(2);
-      initialGuess << 0.5, 0.5; // Initial guess
+      initialGuess << 0, 0; // Initial guess
 
       Eigen::VectorXd result = optimizer.minimize(objective, initialGuess);
           std::cout << "Optimal solution: " << result.transpose() << std::endl;
@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
     {
       GradientDescent<double,CentralDifferences<double>,InverseDecay<double>> optimizer;
       Eigen::VectorXd initialGuess(2);
-      initialGuess << 0.5, 0.5; // Initial guess
+      initialGuess << 0, 0; // Initial guess
 
       Eigen::VectorXd result = optimizer.minimize(objective, initialGuess);
           std::cout << "Optimal solution: " << result.transpose() << std::endl;
