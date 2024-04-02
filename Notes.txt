@@ -51,3 +51,4 @@ Line 101, file gd.h: you forgot to change the comment from Exp decay to Inv deca
 Divide the implementation of the diffrent classes into different header files.
 Give meaningful names to the files.
 Try to use the same programming style for the whole code (type names, variable names, etc.).
+
