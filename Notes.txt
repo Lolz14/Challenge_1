@@ -1,0 +1,10 @@
+README is clear and contains detailed instructions and description of the code.
+
+The code is well organized.
+
+The usage of object functions (functors) is ok, in this case it is very handy but not necessary. Do not abuse it, in general you can define an additional method instead of overloading the operator().
+
+I have appreciated the tests with functions in different dimensions and exact solutions provided, and the possibility to also pass these as input from command line.
+
+Well done!
+
