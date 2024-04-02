@@ -1,0 +1,53 @@
+Poor use of GitHub.
+README is complete but incorrect.
+I cannot run the code with the expression you wrote for the funciton, and if I correct it the Gradient Descent with Armijo rule goes is stuck in an infinite loop.
+If I try to optimize the given function (f(x,y) = xy+4x^4+x^2+3x) starting from the requested intial guess, all the methods converge to the wrong solution.
+
+The error is in the computation of the learning rates:
+- You must use iter+1, since you start from 0;
+- Start from a smaller alpha_0;
+- Use the parameters proposed in the text of the challenge;
+- The implementation of the condition for the Armijo rule is wrong: there is a missing alpha.
+
+Why did you choose a generic beta for the Armijo rule?
+What was the criterion for your parameter choice in the learning rates estimation?
+
+I fixed the bugs in the computation of the learning rates. Now the code works.
+
+There was no need for overcomplicating your code.
+Please, be sure that a simple version works before going on and adding extensions.
+
+Compilation is slow due to exprtk but there was no need for adding it: muparser would have been enough.
+Keep it simple and use instruments that let your code remain usable.
+
+You should not copy the whole eigen library in your lib foalder. Rely on the modules.
+Why did you include the whole muparser library if you did not use it?
+
+The choice to let the user choose the funciton from terminal is good but you should at least let them set the initial guess.
+I would have expected you to read all the optimization parameters from a file using GetPot/muparser.
+
+A lot of code duplication in the main: in the each of the three if conditions you could have just put the choice of the minimizer and leave the definition of the initial guess and the solution, which are exactly the same for all the three cases, out.
+
+You should add a control in the main on the chosen method and a warning when it is invalid.
+As it is now, any integer greater than 1 corresponds to the invrese decay.
+
+You don't need the second argument in the overload of operator() for the classes implementing finite differences.
+The classes implementing finite differences don't have to template with respect to the type Scalar, as you always use double.
+Why do you evaluate the function in the point x at the end of finite differences schemes? You don't need it.
+
+
+Watch out with the use of functors!
+They are classes, and you should let all the fixed parameters be attributes and set them in the constructor, instead of passing them as arguments of a function.
+You don't need to pass all those arguments to all the functors computing the learning rate. Distinguish between Armijo rule and the others.
+
+Avoid using while (true). You still have to evaluate a condition inside the loop!
+Moreover, add a stop criterion based on a maximum number of iterations, so that you can get out of the loop even if the method does not converge.
+You did in GradientDescent, why didn't you do the same for ArmijoLearningrate?
+
+Comment the code!
+A brief explanation of what each function does and how you implement it helps both additional developers who are reading your code and yourself if you go back to this code after some time.
+Line 101, file gd.h: you forgot to change the comment from Exp decay to Inv decay.
+
+Divide the implementation of the diffrent classes into different header files.
+Give meaningful names to the files.
+Try to use the same programming style for the whole code (type names, variable names, etc.).
